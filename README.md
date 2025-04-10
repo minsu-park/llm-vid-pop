@@ -25,17 +25,16 @@ llm-vid-pop/
 
 ## Usage
 ```bash
-python youtube_dataset_collector.py -q QUANTILE -n NUM_VIDEOS
+python youtube_dataset_collector.py -q QUANTILE_FILE
 ```
 
 Where:
 
-- `QUANTILE`: The quantile ID to download videos from
-- `NUM_VIDEOS`: The number of videos to download from the specified quantile
+- `QUANTILE_FILE`: The quantile file name to get video ids from
 
 ### Example:
 ```bash
-python youtube_dataset_collector.py -q 33 -n 1000
+python youtube_dataset_collector.py -q test_global_big_hit
 ```
 
 ## How It Works

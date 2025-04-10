@@ -18,7 +18,7 @@ from youtube_transcript_api.formatters import JSONFormatter
 formatter = JSONFormatter()
 
 # Define constants
-ROOT_DIR = '/storage-1/pratik/new_data/'
+ROOT_DIR = '/storage/data/'
 LOAD_DIR = 'quantiles/'
 PROGRESS_DIR = 'progress/'
 
@@ -29,8 +29,8 @@ THUMBNAIL_DIR = os.path.join(ROOT_DIR, 'thumbnails', THUMBNAIL_RESOLUTION)
 VIDEO_DIR = os.path.join(ROOT_DIR, 'videos', VIDEO_RESOLUTION)
 CAPTION_DIR = os.path.join(ROOT_DIR, 'captions', 'en')
 
-ALTERNATE_THUMBNAIL_DIR = os.path.join('/storage/pratik/new_data/', 'thumbnails', THUMBNAIL_RESOLUTION)
-ALTERNATE_CAPTION_DIR = os.path.join('/storage/pratik/new_data/', 'captions', 'en')
+ALTERNATE_THUMBNAIL_DIR = os.path.join('/storage/data/', 'thumbnails', THUMBNAIL_RESOLUTION)
+ALTERNATE_CAPTION_DIR = os.path.join('/storage/data/', 'captions', 'en')
 
 ONLY_VIDEO = False
 
@@ -230,15 +230,13 @@ def download_videos_for_video_ids(video_ids):
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Download YouTube videos, thumbnails, and captions.')
-    parser.add_argument('-q', '--quantile', type=int, required=True, help='Quantile to download videos from.')
-    parser.add_argument('-n', '--num_videos', type=int, required=True, help='Number of videos to download.')
+    parser.add_argument('-q', '--quantile_file', type=int, required=True, help='Quantile file to download videos from.')
     args = parser.parse_args()
     create_directory(THUMBNAIL_DIR)
     create_directory(CAPTION_DIR)
     create_directory(VIDEO_DIR)
-    video_ids = load_video_ids(f'quantile_{args.quantile}.csv')
+    video_ids = load_video_ids(f'{args.quantile_file}.csv')
     # Limit the number of videos to download
-    video_ids = video_ids[:args.num_videos]
-    print('Downloading videos for quantile', args.quantile, 'with', len(video_ids), 'videos.')
+    print('Downloading videos for quantile', args.quantile_file, 'with', len(video_ids), 'videos.')
     download_videos_for_video_ids(video_ids)
-    print(f"Downloaded videos for quantile {args.quantile}")
+    print(f"Downloaded videos for quantile {args.quantile_file}")
